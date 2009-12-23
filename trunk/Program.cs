@@ -42,13 +42,10 @@ namespace anticulturematrix
         #region Handlers
         public void TimerTickHandler(object sender, EventArgs e)
         {
-            //matrixMutatorRandom.Mutate(currentAtomMatrix,0.3f, availableAtomList);
-            //currentAtomMatrix = atomMatrixRandomGenerator.Build(64, 48, availableAtomList);
-
             if (currentAtomMatrix == null)
-                currentAtomMatrix = atomMatrixMarkovGenerator.Build(64, 48, availableAtomList, currentMarkovMatrix);
+                currentAtomMatrix = atomMatrixMarkovGenerator.Build(32, 24, availableAtomList, currentMarkovMatrix);
             else
-                matrixMutatorMarkov.Mutate(currentAtomMatrix, 0.3f, availableAtomList, currentMarkovMatrix, atomMatrixMarkovGenerator);
+                matrixMutatorMarkov.Mutate(currentAtomMatrix, 0.1f, availableAtomList, currentMarkovMatrix, atomMatrixMarkovGenerator);
 
             mainWindow.ShowMatrix(currentAtomMatrix);
         }
