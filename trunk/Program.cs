@@ -45,7 +45,7 @@ namespace anticulturematrix
             if (currentAtomMatrix == null)
                 currentAtomMatrix = atomMatrixMarkovGenerator.Build(32, 24, availableAtomList, currentMarkovMatrix);
             else
-                matrixMutatorMarkov.Mutate(currentAtomMatrix, 0.1f, availableAtomList, currentMarkovMatrix, atomMatrixMarkovGenerator);
+                matrixMutatorMarkov.Mutate(currentAtomMatrix, 0.05f, availableAtomList, currentMarkovMatrix, atomMatrixMarkovGenerator);
 
             mainWindow.ShowMatrix(currentAtomMatrix);
         }
