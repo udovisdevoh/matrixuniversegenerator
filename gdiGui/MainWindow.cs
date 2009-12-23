@@ -45,21 +45,24 @@ namespace anticulturematrix
         #region Private Methods
         private void InitializeComponent()
         {
+            this.pixelPanel = new PixelPanel(640, 480);
             this.components = new System.ComponentModel.Container();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.pixelPanel = new PixelPanel(640, 480);
+            ((System.ComponentModel.ISupportInitialize)(this.pixelPanel)).BeginInit();
             this.SuspendLayout();
+            // 
+            // pixelPanel
+            // 
+            this.pixelPanel.Location = new System.Drawing.Point(12, 12);
+            this.pixelPanel.Name = "pixelPanel";
+            this.pixelPanel.Size = new System.Drawing.Size(640, 480);
+            this.pixelPanel.TabIndex = 0;
+            this.pixelPanel.TabStop = false;
             // 
             // timer
             // 
+            this.timer.Interval = 40;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // newPanel
-            // 
-            this.pixelPanel.Location = new System.Drawing.Point(12, 12);
-            this.pixelPanel.Name = "newPanel";
-            this.pixelPanel.Size = new System.Drawing.Size(640, 480);
-            this.pixelPanel.TabIndex = 0;
             // 
             // MainWindow
             // 
@@ -69,6 +72,7 @@ namespace anticulturematrix
             this.Controls.Add(this.pixelPanel);
             this.Name = "MainWindow";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.pixelPanel)).EndInit();
             this.ResumeLayout(false);
 
         }
