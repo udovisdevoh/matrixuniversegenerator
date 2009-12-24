@@ -20,8 +20,6 @@ namespace anticulturematrix
 
         private AtomMatrixScaler atomMatrixScaler = new AtomMatrixScaler();
 
-        private MarkovMatrixMutator markovMatrixMutator = new MarkovMatrixMutator();
-
         private AtomMatrix currentAtomMatrix;
 
         private MarkovMatrix currentMarkovMatrix;
