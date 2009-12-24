@@ -5,9 +5,18 @@ using System.Text;
 
 namespace anticulturematrix
 {
+    /// <summary>
+    /// Atom matrix scaler
+    /// </summary>
     class AtomMatrixScaler
     {
         #region Public Methods
+        /// <summary>
+        /// Scale an atom matrix
+        /// </summary>
+        /// <param name="originalMatrix">original matrix</param>
+        /// <param name="bounds">bounds</param>
+        /// <returns>scaled matrix</returns>
         public AtomMatrix Scale(AtomMatrix originalMatrix, Bounds bounds)
         {
             int scaledWidth = bounds.Right - bounds.Left;
