@@ -54,6 +54,9 @@
     <Compile Include="gdiGui\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gdiGui\MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="markovMatrix\MarkovMatrix.cs" />
     <Compile Include="markovMatrix\factories\MarkovMatrixGenerator.cs" />
     <Compile Include="atomMatrix\Atom.cs" />

@@ -27,10 +27,10 @@ namespace anticulturematrix
         #endregion
 
         #region Constructor
-        public PixelPanel(int targetWidth, int targetHeight)
+        public PixelPanel()
         {
-            this.targetWidth = targetWidth;
-            this.targetHeight = targetHeight;
+            this.targetWidth = MainWindow.surfaceWidth;
+            this.targetHeight = MainWindow.surfaceHeight;
             resized = new Size(targetWidth, targetHeight);
             resampledBitmap = new Bitmap(targetWidth, targetHeight);
         }

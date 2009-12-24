@@ -9,29 +9,12 @@ using System.Windows.Forms;
 
 namespace anticulturematrix
 {
-    public class MainWindow : Form
+    public partial class MainWindow : Form
     {
         #region Constants
         public const int surfaceWidth = 640;
 
         public const int surfaceHeight = 480;
-        #endregion
-
-        #region Fields
-        private IContainer components = null;
-
-        private PixelPanel pixelPanel;
-
-        private Timer timer;
-        #endregion
-
-        #region Constructor
-        public MainWindow()
-        {
-            pixelPanel = new PixelPanel(surfaceWidth, surfaceHeight);
-            pixelPanel.MouseDown += this.MouseZoomInHandler;
-            InitializeComponent();
-        }
         #endregion
 
         #region Events
@@ -43,7 +26,7 @@ namespace anticulturematrix
         #region Public Methods
         public void ShowMatrix(AtomMatrix atomMatrix)
         {
-            pixelPanel.ShowMatrix(atomMatrix);
+            pictureBox.ShowMatrix(atomMatrix);
         }
 
         public void StartTimer()
@@ -93,53 +76,11 @@ namespace anticulturematrix
         }
         #endregion
 
-        #region Private Methods
-        private void InitializeComponent()
+        #region Constructor
+        public MainWindow()
         {
-            this.components = new System.ComponentModel.Container();
-            this.timer = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pixelPanel)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // pixelPanel
-            // 
-            this.pixelPanel.Location = new System.Drawing.Point(12, 12);
-            this.pixelPanel.Name = "pixelPanel";
-            this.pixelPanel.Size = new System.Drawing.Size(surfaceWidth, surfaceHeight);
-            this.pixelPanel.TabIndex = 0;
-            this.pixelPanel.TabStop = false;
-            // 
-            // timer
-            // 
-            this.timer.Interval = 40;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // MainWindow
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(664, 504);
-            this.Controls.Add(this.pixelPanel);
-            this.Name = "MainWindow";
-            this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pixelPanel)).EndInit();
-            this.ResumeLayout(false);
-
-        }
-        #endregion
-
-        #region Overrides
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
+            InitializeComponent();
+            pictureBox.MouseDown += this.MouseZoomInHandler;
         }
         #endregion
 
