@@ -24,6 +24,10 @@ namespace anticulturematrix
 
         private AtomMatrixScaler atomMatrixScaler = new AtomMatrixScaler();
 
+        private MarkovMatrixSampler markovMatrixSampler = new MarkovMatrixSampler();
+
+        private MarkovMatrixMutator markovMatrixMutator = new MarkovMatrixMutator();
+
         private AtomMatrix currentAtomMatrix;
 
         private MarkovMatrix currentMarkovMatrix;
@@ -38,7 +42,7 @@ namespace anticulturematrix
             currentMarkovMatrix = markovMatrixGenerator.Build(availableAtomList);
 
             mainWindow.OnTimerTick += TimerTickHandler;
-            mainWindow.OnMouseClick += MouseClickHandler;
+            mainWindow.OnZoomIn += ZoomInHandler;
         }
         #endregion
 
@@ -53,13 +57,18 @@ namespace anticulturematrix
             mainWindow.ShowMatrix(currentAtomMatrix);
         }
 
-        public void MouseClickHandler(object sender, EventArgs e)
+        public void ZoomInHandler(object sender, EventArgs e)
         {
             MouseEventArgs mouseEventArgs = (MouseEventArgs)e;
             if (currentAtomMatrix != null)
             {
                 Bounds bounds = mainWindow.GetBoundsFromClick(mouseEventArgs.X, mouseEventArgs.Y, currentAtomMatrix.Width, currentAtomMatrix.Height);
+                
+                currentMarkovMatrix = markovMatrixSampler.Sample(currentAtomMatrix, bounds, availableAtomList);
+                //currentMarkovMatrix = markovMatrixMutator.Mutate(currentMarkovMatrix);
+
                 currentAtomMatrix = atomMatrixScaler.Scale(currentAtomMatrix, bounds);
+                matrixMutatorMarkov.Mutate(currentAtomMatrix, 0.5f, availableAtomList, currentMarkovMatrix, atomMatrixMarkovGenerator);
             }
         }
         #endregion

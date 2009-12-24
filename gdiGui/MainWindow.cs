@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace anticulturematrix
 {
-    public partial class MainWindow : Form
+    public class MainWindow : Form
     {
         #region Constants
         public const int surfaceWidth = 640;
@@ -28,6 +28,8 @@ namespace anticulturematrix
         #region Constructor
         public MainWindow()
         {
+            pixelPanel = new PixelPanel(surfaceWidth, surfaceHeight);
+            pixelPanel.MouseDown += this.MouseZoomInHandler;
             InitializeComponent();
         }
         #endregion
@@ -35,7 +37,7 @@ namespace anticulturematrix
         #region Events
         public event EventHandler OnTimerTick;
 
-        public new event EventHandler OnMouseClick;
+        public new event EventHandler OnZoomIn;
         #endregion
 
         #region Public Methods
@@ -94,7 +96,6 @@ namespace anticulturematrix
         #region Private Methods
         private void InitializeComponent()
         {
-            this.pixelPanel = new PixelPanel(surfaceWidth, surfaceHeight);
             this.components = new System.ComponentModel.Container();
             this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pixelPanel)).BeginInit();
@@ -107,7 +108,6 @@ namespace anticulturematrix
             this.pixelPanel.Size = new System.Drawing.Size(surfaceWidth, surfaceHeight);
             this.pixelPanel.TabIndex = 0;
             this.pixelPanel.TabStop = false;
-            this.pixelPanel.Click += new System.EventHandler(this.mouse_Click);
             // 
             // timer
             // 
@@ -149,9 +149,9 @@ namespace anticulturematrix
             if (OnTimerTick != null) OnTimerTick(sender, e);
         }
 
-        private void mouse_Click(object sender, EventArgs e)
+        private void MouseZoomInHandler(object sender, MouseEventArgs e)
         {
-            if (OnMouseClick != null) OnMouseClick(sender, e);
+            if (OnZoomIn != null) OnZoomIn(sender, e);
         }
         #endregion
     }

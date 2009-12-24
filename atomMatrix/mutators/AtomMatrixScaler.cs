@@ -10,9 +10,6 @@ namespace anticulturematrix
         #region Public Methods
         public AtomMatrix Scale(AtomMatrix originalMatrix, Bounds bounds)
         {
-            int scaledWidth = bounds.Right - bounds.Left;
-            int scaledHeight = bounds.Bottom - bounds.Top;
-
             AtomMatrix scaledMatrix = new AtomMatrix(originalMatrix.Width, originalMatrix.Height);
 
             int scaledX, scaledY;
@@ -21,8 +18,8 @@ namespace anticulturematrix
             {
                 for (int y = 0; y < originalMatrix.Height; y++)
                 {
-                    scaledX = bounds.Left + (x * scaledWidth / originalMatrix.Width);
-                    scaledY = bounds.Top + (y * scaledHeight / originalMatrix.Height);
+                    scaledX = bounds.Left + (x * bounds.Width / originalMatrix.Width);
+                    scaledY = bounds.Top + (y * bounds.Height / originalMatrix.Height);
 
                     scaledMatrix[x, y] = originalMatrix[scaledX, scaledY];
                 }

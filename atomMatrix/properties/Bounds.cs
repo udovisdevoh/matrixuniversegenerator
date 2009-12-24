@@ -41,6 +41,16 @@ namespace anticulturematrix
             get { return bottom; }
             set { bottom = value; }
         }
+
+        public int Width
+        {
+            get { return right - left + 1; }
+        }
+
+        public int Height
+        {
+            get { return bottom - top + 1; }
+        }
         #endregion
     }
 }
