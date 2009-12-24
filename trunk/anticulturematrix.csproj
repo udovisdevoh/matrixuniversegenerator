@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="atomMatrix\properties\Bounds.cs" />
+    <Compile Include="atomMatrix\mutators\AtomMatrixScaler.cs" />
     <Compile Include="atomMatrix\mutators\MatrixMutatorMarkov.cs" />
     <Compile Include="atomMatrix\mutators\MatrixMutatorRandom.cs" />
     <Compile Include="gdiGui\MainWindow.cs">
@@ -89,6 +91,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="unitTests\UnitTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="markovMatrix\mutators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

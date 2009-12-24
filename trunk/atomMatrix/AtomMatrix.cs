@@ -45,7 +45,7 @@ namespace anticulturematrix
 
                 return internalMatrix[x, y];
             }
-            set { internalMatrix[x, y] = value; }
+            set{ internalMatrix[x, y] = value; }
         }
 
         public int Count
