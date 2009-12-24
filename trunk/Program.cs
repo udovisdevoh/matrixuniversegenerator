@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace anticulturematrix
 {
+    /// <summary>
+    /// Main program's controller
+    /// </summary>
     class Program
     {
         #region Fields
