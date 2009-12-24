@@ -5,7 +5,7 @@ using System.Text;
 
 namespace anticulturematrix
 {
-    class AtomMatrixMarkovGenerator
+    class AtomMatrixGenerator
     {
         #region Public Methods
         public AtomMatrix Build(int width, int height, AvailableAtomList availableAtomList, MarkovMatrix markovMatrix)
