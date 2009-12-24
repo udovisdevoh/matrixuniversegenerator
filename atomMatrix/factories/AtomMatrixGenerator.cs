@@ -5,9 +5,20 @@ using System.Text;
 
 namespace anticulturematrix
 {
+    /// <summary>
+    /// Atom matrix generator
+    /// </summary>
     class AtomMatrixGenerator
     {
         #region Public Methods
+        /// <summary>
+        /// Build atom matrix
+        /// </summary>
+        /// <param name="width">desired width</param>
+        /// <param name="height">desired height</param>
+        /// <param name="availableAtomList">available atom list</param>
+        /// <param name="markovMatrix">markov matrix</param>
+        /// <returns>new atom matrix</returns>
         public AtomMatrix Build(int width, int height, AvailableAtomList availableAtomList, MarkovMatrix markovMatrix)
         {
             AtomMatrix atomMatrix = new AtomMatrix(width, height);
@@ -22,6 +33,15 @@ namespace anticulturematrix
             return atomMatrix;
         }
 
+        /// <summary>
+        /// Generate point
+        /// </summary>
+        /// <param name="x">x coordinate</param>
+        /// <param name="y">y coordinate</param>
+        /// <param name="atomMatrix">atom matrix</param>
+        /// <param name="markovMatrix">markov matrix to use</param>
+        /// <param name="availableAtomList">available atom list</param>
+        /// <returns></returns>
         public Atom GeneratePoint(int x, int y, AtomMatrix atomMatrix, MarkovMatrix markovMatrix, AvailableAtomList availableAtomList)
         {
             float[] row4 = null;
@@ -56,18 +76,45 @@ namespace anticulturematrix
         #endregion
 
         #region Private Methods
+        /// <summary>
+        /// Multiply probabilities of 4 rows
+        /// </summary>
+        /// <param name="defaultNullValue">default null value</param>
+        /// <param name="size">size of the rows</param>
+        /// <param name="row1">row 1</param>
+        /// <param name="row2">row 2</param>
+        /// <param name="row3">row 3</param>
+        /// <param name="row4">row 4</param>
+        /// <returns>Product of two rows</returns>
         private float[] RowMultiply(float defaultNullValue, int size, float[] row1, float[] row2, float[] row3, float[] row4)
         {
             row2 = RowMultiply(defaultNullValue, size, row2, row3, row4);
             return RowMultiply(defaultNullValue, size, row1, row2);
         }
 
+        /// <summary>
+        /// Multiply probabilities of 3 rows
+        /// </summary>
+        /// <param name="defaultNullValue">default null value</param>
+        /// <param name="size">size of the rows</param>
+        /// <param name="row1">row 1</param>
+        /// <param name="row2">row 2</param>
+        /// <param name="row3">row 3</param>
+        /// <returns>Product of two rows</returns>
         private float[] RowMultiply(float defaultNullValue, int size, float[] row1, float[] row2, float[] row3)
         {
             row2 = RowMultiply(defaultNullValue, size, row2, row3);
             return RowMultiply(defaultNullValue, size, row1, row2);
         }
 
+        /// <summary>
+        /// Multiply probabilities of 2 rows
+        /// </summary>
+        /// <param name="defaultNullValue">default null value</param>
+        /// <param name="size">size of the rows</param>
+        /// <param name="row1">row 1</param>
+        /// <param name="row2">row 2</param>
+        /// <returns>Product of two rows</returns>
         private float[] RowMultiply(float defaultNullValue, int size, float[] row1, float[] row2)
         {
             float[] resultRow;
