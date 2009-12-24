@@ -11,6 +11,12 @@ namespace anticulturematrix
 {
     public partial class MainWindow : Form
     {
+        #region Constants
+        public const int surfaceWidth = 640;
+
+        public const int surfaceHeight = 480;
+        #endregion
+
         #region Fields
         private IContainer components = null;
 
@@ -28,6 +34,8 @@ namespace anticulturematrix
 
         #region Events
         public event EventHandler OnTimerTick;
+
+        public new event EventHandler OnMouseClick;
         #endregion
 
         #region Public Methods
@@ -40,12 +48,53 @@ namespace anticulturematrix
         {
             timer.Start();
         }
+
+        public Bounds GetBoundsFromClick(int x, int y, int width, int height)
+        {
+            x = (x * width) / surfaceWidth;
+            y = (y * height) / surfaceHeight;
+
+            int left = x - (width / 4);
+            int right = x + (width / 4);
+            int top = y - (height / 4);
+            int bottom = y + (height / 4);
+
+            if (left < 0)
+            {
+                right = (width / 2);
+                left = 0;
+            }
+            else if (right >= width)
+            {
+                left = (width / 2);
+                right = width - 1;
+            }
+
+            if (top < 0)
+            {
+                bottom = height / 2;
+                top = 0;
+            }
+            else if (bottom >= height)
+            {
+                top = height / 2;
+                bottom = height - 1;
+            }
+
+            Bounds bounds = new Bounds();
+            bounds.Left = left;
+            bounds.Right = right;
+            bounds.Top = top;
+            bounds.Bottom = bottom;
+
+            return bounds;
+        }
         #endregion
 
         #region Private Methods
         private void InitializeComponent()
         {
-            this.pixelPanel = new PixelPanel(640, 480);
+            this.pixelPanel = new PixelPanel(surfaceWidth, surfaceHeight);
             this.components = new System.ComponentModel.Container();
             this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pixelPanel)).BeginInit();
@@ -55,9 +104,10 @@ namespace anticulturematrix
             // 
             this.pixelPanel.Location = new System.Drawing.Point(12, 12);
             this.pixelPanel.Name = "pixelPanel";
-            this.pixelPanel.Size = new System.Drawing.Size(640, 480);
+            this.pixelPanel.Size = new System.Drawing.Size(surfaceWidth, surfaceHeight);
             this.pixelPanel.TabIndex = 0;
             this.pixelPanel.TabStop = false;
+            this.pixelPanel.Click += new System.EventHandler(this.mouse_Click);
             // 
             // timer
             // 
@@ -97,6 +147,11 @@ namespace anticulturematrix
         private void timer_Tick(object sender, EventArgs e)
         {
             if (OnTimerTick != null) OnTimerTick(sender, e);
+        }
+
+        private void mouse_Click(object sender, EventArgs e)
+        {
+            if (OnMouseClick != null) OnMouseClick(sender, e);
         }
         #endregion
     }
