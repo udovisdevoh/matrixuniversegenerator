@@ -22,11 +22,11 @@ namespace anticulturematrix
             Add(new Atom(Color.Red));
             Add(new Atom(Color.Green));
             Add(new Atom(Color.Blue));
-            Add(new Atom(Color.Yellow));
+            /*Add(new Atom(Color.Yellow));
             Add(new Atom(Color.Cyan));
             Add(new Atom(Color.Magenta));
             Add(new Atom(Color.Indigo));
-            Add(new Atom(Color.Orange));
+            Add(new Atom(Color.Orange));*/
         }
         #endregion
 

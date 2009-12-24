@@ -16,17 +16,19 @@ namespace anticulturematrix
 
         private AtomMatrixMarkovGenerator atomMatrixMarkovGenerator = new AtomMatrixMarkovGenerator();
 
-        private MatrixMutatorRandom matrixMutatorRandom = new MatrixMutatorRandom();
+        private AtomMatrixMutatorRandom matrixMutatorRandom = new AtomMatrixMutatorRandom();
 
         private MarkovMatrixGenerator markovMatrixGenerator = new MarkovMatrixGenerator();
 
-        private MatrixMutatorMarkov matrixMutatorMarkov = new MatrixMutatorMarkov();
+        private AtomMatrixMutatorMarkov atomMatrixMutatorMarkov = new AtomMatrixMutatorMarkov();
 
         private AtomMatrixScaler atomMatrixScaler = new AtomMatrixScaler();
 
         private MarkovMatrixSampler markovMatrixSampler = new MarkovMatrixSampler();
 
         private MarkovMatrixMutator markovMatrixMutator = new MarkovMatrixMutator();
+
+        private MarkovMatrixAdder markovMatrixAdder = new MarkovMatrixAdder();
 
         private AtomMatrix currentAtomMatrix;
 
@@ -50,9 +52,9 @@ namespace anticulturematrix
         public void TimerTickHandler(object sender, EventArgs e)
         {
             if (currentAtomMatrix == null)
-                currentAtomMatrix = atomMatrixMarkovGenerator.Build(32, 24, availableAtomList, currentMarkovMatrix);
+                currentAtomMatrix = atomMatrixMarkovGenerator.Build(64, 48, availableAtomList, currentMarkovMatrix);
             else
-                matrixMutatorMarkov.Mutate(currentAtomMatrix, 0.05f, availableAtomList, currentMarkovMatrix, atomMatrixMarkovGenerator);
+                atomMatrixMutatorMarkov.Mutate(currentAtomMatrix, 0.05f, availableAtomList, currentMarkovMatrix, atomMatrixMarkovGenerator);
 
             mainWindow.ShowMatrix(currentAtomMatrix);
         }
@@ -64,11 +66,14 @@ namespace anticulturematrix
             {
                 Bounds bounds = mainWindow.GetBoundsFromClick(mouseEventArgs.X, mouseEventArgs.Y, currentAtomMatrix.Width, currentAtomMatrix.Height);
                 
-                currentMarkovMatrix = markovMatrixSampler.Sample(currentAtomMatrix, bounds, availableAtomList);
-                //currentMarkovMatrix = markovMatrixMutator.Mutate(currentMarkovMatrix);
+                MarkovMatrix statisticalMarkovMatrix = markovMatrixSampler.Sample(currentAtomMatrix, bounds, availableAtomList);
 
                 currentAtomMatrix = atomMatrixScaler.Scale(currentAtomMatrix, bounds);
-                matrixMutatorMarkov.Mutate(currentAtomMatrix, 0.5f, availableAtomList, currentMarkovMatrix, atomMatrixMarkovGenerator);
+
+                //currentMarkovMatrix = markovMatrixAdder.Average(currentMarkovMatrix, statisticalMarkovMatrix);
+                
+                atomMatrixMutatorMarkov.Mutate(currentAtomMatrix, 1.0f, availableAtomList, currentMarkovMatrix, atomMatrixMarkovGenerator);
+                //currentMarkovMatrix = markovMatrixMutator.Mutate(currentMarkovMatrix, currentAtomMatrix);
             }
         }
         #endregion

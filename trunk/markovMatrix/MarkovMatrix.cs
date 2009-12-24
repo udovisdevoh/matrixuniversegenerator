@@ -29,6 +29,22 @@ namespace anticulturematrix
                 row[i] = internalMatrix[atom.Id, i];
             return row;
         }
+
+        public int GetRowMax(int i)
+        {
+            int maxKey = -1;
+            float maxValue = -1.0f;
+
+            for (int j = 0; j < matrixSize; j++)
+            {
+                if (maxKey == -1 || internalMatrix[i, j] > maxValue)
+                {
+                    maxKey = j;
+                    maxValue = internalMatrix[i, j];
+                }
+            }
+            return maxKey;
+        }
         #endregion
 
         #region Properties
@@ -36,6 +52,11 @@ namespace anticulturematrix
         {
             get { return internalMatrix[x, y]; }
             set { internalMatrix[x, y] = value; }
+        }
+
+        public int MatrixSize
+        {
+            get { return matrixSize; }
         }
         #endregion
     }
