@@ -50,20 +50,16 @@
   <ItemGroup>
     <Compile Include="atomMatrix\properties\Bounds.cs" />
     <Compile Include="atomMatrix\operations\AtomMatrixScaler.cs" />
-    <Compile Include="atomMatrix\operations\AtomMatrixMutatorMarkov.cs" />
-    <Compile Include="atomMatrix\operations\AtomMatrixMutatorRandom.cs" />
+    <Compile Include="atomMatrix\operations\AtomMatrixMutator.cs" />
     <Compile Include="gdiGui\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="markovMatrix\factories\MarkovMatrixSampler.cs" />
     <Compile Include="markovMatrix\MarkovMatrix.cs" />
     <Compile Include="markovMatrix\factories\MarkovMatrixGenerator.cs" />
     <Compile Include="atomMatrix\Atom.cs" />
     <Compile Include="atomMatrix\AvailableAtomList.cs" />
     <Compile Include="atomMatrix\AtomMatrix.cs" />
-    <Compile Include="atomMatrix\factories\AtomMatrixRandomGenerator.cs" />
-    <Compile Include="atomMatrix\factories\AtomMatrixMarkovGenerator.cs" />
-    <Compile Include="markovMatrix\operations\MarkovMatrixAdder.cs" />
+    <Compile Include="atomMatrix\factories\AtomMatrixGenerator.cs" />
     <Compile Include="markovMatrix\operations\MarkovMatrixMutator.cs" />
     <Compile Include="probabilities\Probabilities.cs" />
     <Compile Include="Program.cs" />
