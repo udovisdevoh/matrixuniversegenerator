@@ -55,6 +55,7 @@
     <Compile Include="gdiGui\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="markovMatrix\factories\MarkovMatrixSampler.cs" />
     <Compile Include="markovMatrix\MarkovMatrix.cs" />
     <Compile Include="markovMatrix\factories\MarkovMatrixGenerator.cs" />
     <Compile Include="atomMatrix\Atom.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="atomMatrix\AtomMatrix.cs" />
     <Compile Include="atomMatrix\factories\AtomMatrixRandomGenerator.cs" />
     <Compile Include="atomMatrix\factories\AtomMatrixMarkovGenerator.cs" />
+    <Compile Include="markovMatrix\mutators\MarkovMatrixMutator.cs" />
     <Compile Include="probabilities\Probabilities.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,9 +93,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="unitTests\UnitTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="markovMatrix\mutators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
