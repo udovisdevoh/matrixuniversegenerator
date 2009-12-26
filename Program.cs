@@ -64,7 +64,7 @@ namespace anticulturematrix
         #region Handlers
         public void TimerTickHandler(object sender, EventArgs e)
         {
-            atomMatrixMutator.Mutate(atomMatrixSet, 0.05f, availableAtomList, markovMatrixSet, atomMatrixGenerator);
+            atomMatrixMutator.Mutate(atomMatrixSet, 0.5f, availableAtomList, markovMatrixSet, atomMatrixGenerator);
             mainWindow.ShowMatrixSet(atomMatrixSet);
         }
 
