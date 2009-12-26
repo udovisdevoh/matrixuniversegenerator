@@ -15,8 +15,6 @@ namespace anticulturematrix
 
         private int targetHeight;
 
-        private AtomMatrix atomMatrix; //PixelPanel's model
-
         private Pen pen = new Pen(new Color());
 
         private Bitmap bitmap;
@@ -39,14 +37,44 @@ namespace anticulturematrix
         #region Public Methods
         public void ShowMatrix(AtomMatrix atomMatrix)
         {
-            this.atomMatrix = atomMatrix;
-
             if (bitmap == null)
                 bitmap = new Bitmap(atomMatrix.Width, atomMatrix.Height);
 
             for (int x = 0; x < atomMatrix.Width; ++x)
                 for (int y = 0; y < atomMatrix.Height; ++y)
                     bitmap.SetPixel(x, y, atomMatrix[x, y].Color);
+
+            this.Image = ResizeImage(bitmap);
+
+            Invalidate();//supposed to calls OnPaint()
+        }
+
+        public void ShowMatrixSet(AtomMatrixSet atomMatrixSet)
+        {
+            if (bitmap == null)
+                bitmap = new Bitmap(atomMatrixSet.TotalWidth, atomMatrixSet.TotalHeight);
+
+            int widthPerMatrix = atomMatrixSet.WidthPerMatrix;
+            int heightPerMatrix = atomMatrixSet.HeightPerMatrix;
+
+            int exactX, exactY;
+
+            for (int matrixCol = 0; matrixCol < atomMatrixSet.Width; matrixCol++)
+            {
+                for (int matrixRow = 0; matrixRow < atomMatrixSet.Height; matrixRow++)
+                {
+                    for (int x = 0; x < atomMatrixSet[matrixCol, matrixRow].Width; x++)
+                    {
+                        for (int y = 0; y < atomMatrixSet[matrixCol, matrixRow].Height; y++)
+                        {
+                            exactX = matrixCol * widthPerMatrix + x;
+                            exactY = matrixRow * heightPerMatrix + y;
+
+                            bitmap.SetPixel(exactX, exactY, atomMatrixSet[matrixCol, matrixRow][x, y].Color);
+                        }
+                    }
+                }
+            }
 
             this.Image = ResizeImage(bitmap);
 

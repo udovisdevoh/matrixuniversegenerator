@@ -10,10 +10,18 @@ namespace anticulturematrix
     /// </summary>
     class Program
     {
+        #region Constants
+        private const int rowCount = 3;
+
+        private const int colCount = 3;
+        #endregion
+
         #region Fields
         private MainWindow mainWindow;
 
         private AtomMatrixSet atomMatrixSet;
+
+        private MarkovMatrixSet markovMatrixSet;
 
         private AvailableAtomList availableAtomList = new AvailableAtomList();
 
@@ -25,9 +33,7 @@ namespace anticulturematrix
 
         private AtomMatrixScaler atomMatrixScaler = new AtomMatrixScaler();
 
-        private AtomMatrix currentAtomMatrix;
-
-        private MarkovMatrix currentMarkovMatrix;
+        private MarkovMatrixMutator markovMatrixMutator = new MarkovMatrixMutator();
         #endregion
 
         #region Constructor
@@ -36,14 +42,19 @@ namespace anticulturematrix
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             mainWindow = new MainWindow();
-            currentMarkovMatrix = markovMatrixGenerator.Build(availableAtomList);
 
-            currentAtomMatrix = atomMatrixGenerator.Build(64, 48, availableAtomList, currentMarkovMatrix);
+            markovMatrixSet = new MarkovMatrixSet(colCount, rowCount);
+            markovMatrixSet.CenterMatrix = markovMatrixGenerator.Build(availableAtomList);
 
+            for (int x = 0; x < markovMatrixSet.Width; x++)
+                for (int y = 0; y < markovMatrixSet.Height; y++)
+                    if (markovMatrixSet[x,y] != markovMatrixSet.CenterMatrix)
+                        markovMatrixSet[x,y] = markovMatrixMutator.Mutate(markovMatrixSet.CenterMatrix, 0.1f);
 
-            atomMatrixSet = new AtomMatrixSet(3, 3);
-            atomMatrixSet[1, 1] = currentAtomMatrix;
-
+            atomMatrixSet = new AtomMatrixSet(colCount, rowCount);
+            for (int x = 0; x < markovMatrixSet.Width; x++)
+                for (int y = 0; y < markovMatrixSet.Height; y++)
+                    atomMatrixSet[x, y] = atomMatrixGenerator.Build(48, 36, availableAtomList, markovMatrixSet[x,y]);           
 
             mainWindow.OnTimerTick += TimerTickHandler;
             mainWindow.OnZoomIn += ZoomInHandler;
@@ -53,21 +64,21 @@ namespace anticulturematrix
         #region Handlers
         public void TimerTickHandler(object sender, EventArgs e)
         {
-            atomMatrixMutator.Mutate(currentAtomMatrix, 0.05f, availableAtomList, currentMarkovMatrix, atomMatrixGenerator);
-            mainWindow.ShowMatrix(currentAtomMatrix);
+            atomMatrixMutator.Mutate(atomMatrixSet, 0.05f, availableAtomList, markovMatrixSet, atomMatrixGenerator);
+            mainWindow.ShowMatrixSet(atomMatrixSet);
         }
 
         public void ZoomInHandler(object sender, EventArgs e)
         {
+            /*
             MouseEventArgs mouseEventArgs = (MouseEventArgs)e;
-            if (currentAtomMatrix != null)
-            {
-                Bounds bounds = mainWindow.GetBoundsFromClick(mouseEventArgs.X, mouseEventArgs.Y, currentAtomMatrix.Width, currentAtomMatrix.Height);
 
-                currentAtomMatrix = atomMatrixScaler.Scale(currentAtomMatrix, bounds);
-                
-                atomMatrixMutator.Mutate(currentAtomMatrix, 1.0f, availableAtomList, currentMarkovMatrix, atomMatrixGenerator);
-            }
+            Bounds bounds = mainWindow.GetBoundsFromClick(mouseEventArgs.X, mouseEventArgs.Y, currentAtomMatrix.Width, currentAtomMatrix.Height);
+
+            currentAtomMatrix = atomMatrixScaler.Scale(currentAtomMatrix, bounds);
+            
+            atomMatrixMutator.Mutate(currentAtomMatrix, 1.0f, availableAtomList, currentMarkovMatrix, atomMatrixGenerator);
+            */
         }
         #endregion
 

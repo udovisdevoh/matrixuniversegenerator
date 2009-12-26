@@ -6,9 +6,9 @@ using System.Text;
 namespace anticulturematrix
 {
     /// <summary>
-    /// Atom matrix set
+    /// Markov Matrix Set
     /// </summary>
-    public class AtomMatrixSet
+    class MarkovMatrixSet
     {
         #region Fields
         /// <summary>
@@ -24,31 +24,31 @@ namespace anticulturematrix
         /// <summary>
         /// Internal matrix
         /// </summary>
-        private AtomMatrix[,] internalMatrix;
+        private MarkovMatrix[,] internalMatrix;
         #endregion
 
         #region Constructors
         /// <summary>
-        /// Create atom matrix set
+        /// Create markov matrix set
         /// </summary>
-        /// <param name="width">desired width</param>
+        /// <param name="width">desired size</param>
         /// <param name="height">desired height</param>
-        public AtomMatrixSet(int width, int height)
+        public MarkovMatrixSet(int width, int height)
         {
             this.width = width;
             this.height = height;
-            internalMatrix = new AtomMatrix[width, height];
+            internalMatrix = new MarkovMatrix[width, height];
         }
         #endregion
 
         #region Properties
         /// <summary>
-        /// AtomMatrix in the set
+        /// MarkovMatrix in the set
         /// </summary>
         /// <param name="x">x</param>
         /// <param name="y">y</param>
-        /// <returns>selected atom matrix</returns>
-        public AtomMatrix this[int x, int y]
+        /// <returns>selected markov matrix</returns>
+        public MarkovMatrix this[int x, int y]
         {
             get
             {
@@ -61,7 +61,7 @@ namespace anticulturematrix
         }
 
         /// <summary>
-        /// How many atom matrix in the set (width * height)
+        /// How many markov matrix in the set (width * height)
         /// </summary>
         public int Count
         {
@@ -84,36 +84,24 @@ namespace anticulturematrix
             get { return height; }
         }
 
-        public int WidthPerMatrix
+        /// <summary>
+        /// Matrix in the center
+        /// </summary>
+        public MarkovMatrix CenterMatrix
         {
             get
             {
-                return internalMatrix[0, 0].Width;
+                int x = width / 2;
+                int y = height / 2;
+                return this[x, y];
             }
-        }
 
-        public int HeightPerMatrix
-        {
-            get
+            set
             {
-                return internalMatrix[0, 0].Height;
+                int x = width / 2;
+                int y = height / 2;
+                this[x, y] = value;
             }
-        }
-
-        /// <summary>
-        /// Total width (pixels)
-        /// </summary>
-        public int TotalWidth
-        {
-            get { return WidthPerMatrix * width; }
-        }
-
-        /// <summary>
-        /// Total height (pixels)
-        /// </summary>
-        public int TotalHeight
-        {
-            get { return HeightPerMatrix * height; }
         }
         #endregion
     }

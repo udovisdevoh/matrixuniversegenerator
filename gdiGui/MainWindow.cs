@@ -74,6 +74,11 @@ namespace anticulturematrix
 
             return bounds;
         }
+
+        public void ShowMatrixSet(AtomMatrixSet atomMatrixSet)
+        {
+            pictureBox.ShowMatrixSet(atomMatrixSet);
+        }
         #endregion
 
         #region Constructor
