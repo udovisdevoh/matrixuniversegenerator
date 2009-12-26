@@ -79,6 +79,19 @@ namespace anticulturematrix
         {
             pictureBox.ShowMatrixSet(atomMatrixSet);
         }
+
+        public Point SelectedMatrixPoint(int clickX, int clickY, AtomMatrixSet atomMatrixSet)
+        {
+            clickX *= atomMatrixSet.TotalWidth;
+            clickX /= surfaceWidth;
+            clickX /= atomMatrixSet.WidthPerMatrix;
+
+            clickY *= atomMatrixSet.TotalHeight;
+            clickY /= surfaceHeight;
+            clickY /= atomMatrixSet.HeightPerMatrix;
+
+            return new Point(clickX, clickY);
+        }
         #endregion
 
         #region Constructor

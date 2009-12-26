@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace anticulturematrix
 {
@@ -14,6 +15,10 @@ namespace anticulturematrix
         private const int rowCount = 3;
 
         private const int colCount = 3;
+
+        private const int singleMatrixWidth = 48;
+
+        private const int singleMatrixHeight = 36;
         #endregion
 
         #region Fields
@@ -43,18 +48,13 @@ namespace anticulturematrix
             Application.SetCompatibleTextRenderingDefault(false);
             mainWindow = new MainWindow();
 
+            atomMatrixSet = new AtomMatrixSet(colCount, rowCount);
+
             markovMatrixSet = new MarkovMatrixSet(colCount, rowCount);
             markovMatrixSet.CenterMatrix = markovMatrixGenerator.Build(availableAtomList);
 
-            for (int x = 0; x < markovMatrixSet.Width; x++)
-                for (int y = 0; y < markovMatrixSet.Height; y++)
-                    if (markovMatrixSet[x,y] != markovMatrixSet.CenterMatrix)
-                        markovMatrixSet[x,y] = markovMatrixMutator.Mutate(markovMatrixSet.CenterMatrix, 0.1f);
-
-            atomMatrixSet = new AtomMatrixSet(colCount, rowCount);
-            for (int x = 0; x < markovMatrixSet.Width; x++)
-                for (int y = 0; y < markovMatrixSet.Height; y++)
-                    atomMatrixSet[x, y] = atomMatrixGenerator.Build(48, 36, availableAtomList, markovMatrixSet[x,y]);           
+            markovMatrixMutator.RegenerateSideMarkovMatrixes(markovMatrixSet);
+            atomMatrixSet = atomMatrixGenerator.BuildAtomMatrixSet(markovMatrixSet,singleMatrixWidth,singleMatrixHeight,availableAtomList);
 
             mainWindow.OnTimerTick += TimerTickHandler;
             mainWindow.OnZoomIn += ZoomInHandler;
@@ -70,15 +70,17 @@ namespace anticulturematrix
 
         public void ZoomInHandler(object sender, EventArgs e)
         {
-            /*
             MouseEventArgs mouseEventArgs = (MouseEventArgs)e;
 
-            Bounds bounds = mainWindow.GetBoundsFromClick(mouseEventArgs.X, mouseEventArgs.Y, currentAtomMatrix.Width, currentAtomMatrix.Height);
+            Point point = mainWindow.SelectedMatrixPoint(mouseEventArgs.X, mouseEventArgs.Y, atomMatrixSet);
 
-            currentAtomMatrix = atomMatrixScaler.Scale(currentAtomMatrix, bounds);
-            
-            atomMatrixMutator.Mutate(currentAtomMatrix, 1.0f, availableAtomList, currentMarkovMatrix, atomMatrixGenerator);
-            */
+            markovMatrixSet.CenterMatrix = markovMatrixSet[point.X, point.Y];
+
+            markovMatrixMutator.RegenerateSideMarkovMatrixes(markovMatrixSet);
+            atomMatrixSet = atomMatrixGenerator.BuildAtomMatrixSet(markovMatrixSet, singleMatrixWidth, singleMatrixHeight, availableAtomList);
+
+            //currentAtomMatrix = atomMatrixScaler.Scale(currentAtomMatrix, bounds);
+            //atomMatrixMutator.Mutate(currentAtomMatrix, 1.0f, availableAtomList, currentMarkovMatrix, atomMatrixGenerator);
         }
         #endregion
 

@@ -33,5 +33,13 @@ namespace anticulturematrix
 
             return mutatedMatrix;
         }
+
+        public void RegenerateSideMarkovMatrixes(MarkovMatrixSet markovMatrixSet)
+        {
+            for (int x = 0; x < markovMatrixSet.Width; x++)
+                for (int y = 0; y < markovMatrixSet.Height; y++)
+                    if (markovMatrixSet[x, y] != markovMatrixSet.CenterMatrix)
+                        markovMatrixSet[x, y] = Mutate(markovMatrixSet.CenterMatrix, 0.2f);
+        }
     }
 }
