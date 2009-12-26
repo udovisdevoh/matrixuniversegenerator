@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="atomMatrix\AtomMatrixSet.cs" />
     <Compile Include="atomMatrix\properties\Bounds.cs" />
     <Compile Include="atomMatrix\operations\AtomMatrixScaler.cs" />
     <Compile Include="atomMatrix\operations\AtomMatrixMutator.cs" />
