@@ -13,6 +13,8 @@ namespace anticulturematrix
         #region Fields
         private MainWindow mainWindow;
 
+        private AtomMatrixSet atomMatrixSet;
+
         private AvailableAtomList availableAtomList = new AvailableAtomList();
 
         private AtomMatrixGenerator atomMatrixGenerator = new AtomMatrixGenerator();
@@ -36,6 +38,13 @@ namespace anticulturematrix
             mainWindow = new MainWindow();
             currentMarkovMatrix = markovMatrixGenerator.Build(availableAtomList);
 
+            currentAtomMatrix = atomMatrixGenerator.Build(64, 48, availableAtomList, currentMarkovMatrix);
+
+
+            atomMatrixSet = new AtomMatrixSet(3, 3);
+            atomMatrixSet[1, 1] = currentAtomMatrix;
+
+
             mainWindow.OnTimerTick += TimerTickHandler;
             mainWindow.OnZoomIn += ZoomInHandler;
         }
@@ -44,11 +53,7 @@ namespace anticulturematrix
         #region Handlers
         public void TimerTickHandler(object sender, EventArgs e)
         {
-            if (currentAtomMatrix == null)
-                currentAtomMatrix = atomMatrixGenerator.Build(64, 48, availableAtomList, currentMarkovMatrix);
-            else
-                atomMatrixMutator.Mutate(currentAtomMatrix, 0.05f, availableAtomList, currentMarkovMatrix, atomMatrixGenerator);
-
+            atomMatrixMutator.Mutate(currentAtomMatrix, 0.05f, availableAtomList, currentMarkovMatrix, atomMatrixGenerator);
             mainWindow.ShowMatrix(currentAtomMatrix);
         }
 
