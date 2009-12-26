@@ -6,15 +6,27 @@ using System.Drawing;
 
 namespace anticulturematrix
 {
+    /// <summary>
+    /// Available atom list
+    /// </summary>
     class AvailableAtomList : IList<Atom>
     {
         #region Fields
+        /// <summary>
+        /// Internal list
+        /// </summary>
         private List<Atom> internalList = new List<Atom>();
 
+        /// <summary>
+        /// Internal set
+        /// </summary>
         private HashSet<Atom> internalSet = new HashSet<Atom>();
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Create list of available atoms
+        /// </summary>
         public AvailableAtomList()
         {
             Add(new Atom(Color.Black));
@@ -31,6 +43,10 @@ namespace anticulturematrix
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Get random atom
+        /// </summary>
+        /// <returns>random atom</returns>
         public Atom GetRandomAtom()
         {
             if (internalList.Count < 1)
@@ -113,6 +129,11 @@ namespace anticulturematrix
                 internalSet.Remove(item);
         }
 
+        /// <summary>
+        /// Atom at specified index
+        /// </summary>
+        /// <param name="index">specified index</param>
+        /// <returns>atom at specified index</returns>
         public Atom this[int index]
         {
             get

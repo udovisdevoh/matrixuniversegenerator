@@ -5,8 +5,16 @@ using System.Text;
 
 namespace anticulturematrix
 {
+    /// <summary>
+    /// Markov matrix generator
+    /// </summary>
     class MarkovMatrixGenerator
     {
+        /// <summary>
+        /// Build markov matrix
+        /// </summary>
+        /// <param name="availableAtomList">available atom list</param>
+        /// <returns>Generated markov matrix</returns>
         public MarkovMatrix Build(AvailableAtomList availableAtomList)
         {
             MarkovMatrix markovMatrix = new MarkovMatrix(availableAtomList.Count);
