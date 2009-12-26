@@ -64,6 +64,8 @@
     <Compile Include="atomMatrix\AvailableAtomList.cs" />
     <Compile Include="atomMatrix\AtomMatrix.cs" />
     <Compile Include="atomMatrix\factories\AtomMatrixGenerator.cs" />
+    <Compile Include="markovMatrix\MarkovMatrixSet.cs" />
+    <Compile Include="markovMatrix\operations\MarkovMatrixMutator.cs" />
     <Compile Include="probabilities\Probabilities.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,9 +95,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="unitTests\UnitTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="markovMatrix\operations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

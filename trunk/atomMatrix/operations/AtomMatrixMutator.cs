@@ -32,6 +32,21 @@ namespace anticulturematrix
                 atomMatrix[x, y] = atomMatrixMarkovGenerator.GeneratePoint(x, y, atomMatrix, markovMatrix, availableAtomList);
             }
         }
+
+        /// <summary>
+        /// Mutate an atom matrix set
+        /// </summary>
+        /// <param name="atomMatrixSet">atom matrix set</param>
+        /// <param name="ratioToMutate">ratio to mutate</param>
+        /// <param name="availableAtomList">available atom list</param>
+        /// <param name="markovMatrixSet">markov matrix set to use</param>
+        /// <param name="atomMatrixGenerator">markov matrix generator to use</param>
+        public void Mutate(AtomMatrixSet atomMatrixSet, float ratioToMutate, AvailableAtomList availableAtomList, MarkovMatrixSet markovMatrixSet, AtomMatrixGenerator atomMatrixGenerator)
+        {
+            for (int x = 0; x < atomMatrixSet.Width; x++)
+                for (int y = 0; y < atomMatrixSet.Height; y++)
+                   Mutate(atomMatrixSet[x, y], ratioToMutate,availableAtomList, markovMatrixSet[x, y], atomMatrixGenerator);
+        }
         #endregion
     }
 }
