@@ -33,6 +33,17 @@ namespace anticulturematrix
             return atomMatrix;
         }
 
+        public AtomMatrixSet BuildAtomMatrixSet(MarkovMatrixSet markovMatrixSet, int singleMatrixWidth, int singleMatrixHeight, AvailableAtomList availableAtomList)
+        {
+            AtomMatrixSet atomMatrixSet = new AtomMatrixSet(markovMatrixSet.Width, markovMatrixSet.Height);
+
+            for (int x = 0; x < markovMatrixSet.Width; x++)
+                for (int y = 0; y < markovMatrixSet.Height; y++)
+                    atomMatrixSet[x, y] = Build(singleMatrixWidth, singleMatrixHeight, availableAtomList, markovMatrixSet[x, y]);
+
+            return atomMatrixSet;
+        }
+
         /// <summary>
         /// Generate point
         /// </summary>
